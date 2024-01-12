@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hackton_project/provider/firebase_auth.dart';
-import 'package:hackton_project/provider/user_info.dart';
+import 'package:hackton_project/provider/user_provider.dart';
 import 'package:hackton_project/widgets/common/app_bar_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -71,7 +71,8 @@ class _HomeBalanceScreenState extends State<HomeBalanceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProviderApp>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(title: const Text("Fambal"), actions: [
         Consumer<ApplicationState>(
@@ -122,15 +123,25 @@ class _HomeBalanceScreenState extends State<HomeBalanceScreen> {
               ),
               SizedBox(
                 width: 150,
-                child: ElevatedButton(
-                  onPressed: () {
-                    context.goNamed("balance_game");
-                  },
-                  child: const Text(
-                    "밸런스 게임",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
+                child: userProvider.user.state == 0
+                    ? ElevatedButton(
+                        onPressed: () {
+                          context.goNamed("balance_game");
+                        },
+                        child: const Text(
+                          "밸런스 게임",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      )
+                    : ElevatedButton(
+                        onPressed: () {
+                          context.goNamed("result");
+                        },
+                        child: const Text(
+                          "밸런스 게임",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
               ),
               const SizedBox(
                 height: 20,

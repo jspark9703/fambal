@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
 class BalanceScreen extends StatefulWidget {
@@ -155,7 +156,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
 
                   // 선택된 버튼을 서버에 전송
                   sendSelectedButtonToServer();
-
+                  GoRouter.of(context).goNamed("home");
                   //GoRouter.of(context).go("/next_page");// 라우터로 페이지 이동
                 },
                 child: const Text("완료", style: TextStyle(color: Colors.black)),

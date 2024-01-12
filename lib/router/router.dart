@@ -22,6 +22,11 @@ final router = GoRouter(
             builder: (context, state) => const QuizScreen(),
           ),
           GoRoute(
+            path: 'result',
+            name: "result",
+            builder: (context, state) => const QuizScreen(),
+          ),
+          GoRoute(
             path: 'balance_game',
             name: "balance_game",
             builder: (context, state) => const BalanceScreen(),
