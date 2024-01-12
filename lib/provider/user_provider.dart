@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hackton_project/models/user.dart';
 
-class UserProvider extends ChangeNotifier {
+class UserProviderApp extends ChangeNotifier {
   User _user;
 
-  UserProvider(this._user);
+  UserProviderApp(this._user);
 
   User get user => _user;
 
