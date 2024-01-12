@@ -124,7 +124,7 @@ class _HomeBalanceScreenState extends State<HomeBalanceScreen> {
                 width: 150,
                 child: ElevatedButton(
                   onPressed: () {
-                    //TODO
+                    context.goNamed("balance_game");
                   },
                   child: const Text(
                     "밸런스 게임",

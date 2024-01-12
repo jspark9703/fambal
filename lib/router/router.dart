@@ -2,6 +2,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hackton_project/provider/user_info.dart';
+import 'package:hackton_project/screens/balance_screen.dart';
 import 'package:hackton_project/screens/home_balance_screen.dart';
 import 'package:hackton_project/screens/imformation_screen.dart';
 import 'package:hackton_project/screens/login_screen.dart';
@@ -19,6 +20,11 @@ final router = GoRouter(
             path: 'quiz',
             name: "quiz",
             builder: (context, state) => const QuizScreen(),
+          ),
+          GoRoute(
+            path: 'balance_game',
+            name: "balance_game",
+            builder: (context, state) => const BalnceScreen(),
           ),
         ]),
     GoRoute(
