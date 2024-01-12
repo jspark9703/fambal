@@ -1,7 +1,7 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hackton_project/provider/user_provider.dart';
+import 'package:hackton_project/models/user.dart';
 import 'package:hackton_project/screens/balance_game_screen.dart';
 import 'package:hackton_project/screens/home_balance_screen.dart';
 import 'package:hackton_project/screens/imformation_screen.dart';
@@ -35,7 +35,7 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) =>
-          Consumer<UserProviderApp>(builder: (context, user, _) {
+          Consumer<UserProviderR>(builder: (context, user, _) {
         return const LoginScreen();
       }),
       routes: [

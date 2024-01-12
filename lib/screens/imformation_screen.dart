@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hackton_project/models/user.dart';
 import 'package:hackton_project/provider/firebase_auth.dart';
-import 'package:hackton_project/provider/user_provider.dart';
 import 'package:hackton_project/widgets/common/app_bar_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -28,7 +28,7 @@ class _InformationScreenState extends State<InformationScreen> {
 
   void sendUserServer() async {
     try {
-      final userProvider = Provider.of<UserProviderApp>(context, listen: false);
+      final userProvider = Provider.of<UserProviderR>(context, listen: false);
 
       final response = await http.post(
         Uri.parse(''), //서버주소
@@ -61,7 +61,7 @@ class _InformationScreenState extends State<InformationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProviderApp>(context, listen: false);
+    final userProvider = Provider.of<UserProviderR>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(actions: [
@@ -159,7 +159,7 @@ class _InformationScreenState extends State<InformationScreen> {
                             if (_selectedDate != null) {
                               final birthDate =
                                   "${_selectedDate!.year}-${_selectedDate!.month}-${_selectedDate!.day}";
-                              userProvider.user.birth = birthDate;
+                              userProvider.birth = birthDate;
                             }
                           });
                         });
@@ -198,10 +198,9 @@ class _InformationScreenState extends State<InformationScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          userProvider.user.nickname = _niknameController.text;
-                          userProvider.user.name = _userNameController.text;
-                          userProvider.user.famNickname =
-                              _famNicknameController.text;
+                          userProvider.nickname = _niknameController.text;
+                          userProvider.setName = _userNameController.text;
+                          userProvider.nickname = _famNicknameController.text;
 
                           sendUserServer();
                           GoRouter.of(context).goNamed("home"); // 라우터로 페이지 이동

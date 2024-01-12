@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-class User extends ChangeNotifier {
+import 'random_str.dart'; // 알맞은 파일 경로로 수정
+
+class UserProviderR extends ChangeNotifier {
   String uid;
   int state;
   int userPoint;
@@ -8,9 +10,10 @@ class User extends ChangeNotifier {
   String userNickname;
   String userName;
   String userBirth;
-  String? famUserName;
+  int? familyNum;
+  String? familyCode;
 
-  User({
+  UserProviderR({
     required this.uid,
     required this.state,
     required this.userPoint,
@@ -18,10 +21,13 @@ class User extends ChangeNotifier {
     required this.userNickname,
     required this.userName,
     required this.userBirth,
-    required this.famUserName,
-  });
+    this.familyNum,
+    this.familyCode,
+  }) {
+    familyCode ??= generateRandomString(16);
+  }
 
-  set name(String inputName) {
+  set setName(String inputName) {
     userName = inputName;
     notifyListeners();
   }
@@ -36,13 +42,18 @@ class User extends ChangeNotifier {
     notifyListeners();
   }
 
-  set famNickname(String inputFamNickname) {
-    famUserName = inputFamNickname;
+  set setFamilyNum(int input) {
+    familyNum = input;
     notifyListeners();
   }
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  set setState(int input) {
+    state = input;
+    notifyListeners();
+  }
+
+  factory UserProviderR.fromJson(Map<String, dynamic> json) {
+    return UserProviderR(
       uid: json['uid'],
       state: json['state'],
       userPoint: json['user_point'],
@@ -50,7 +61,8 @@ class User extends ChangeNotifier {
       userNickname: json['user_nickname'],
       userName: json['user_name'],
       userBirth: json['user_birth'],
-      famUserName: json['fam_user_name'],
+      familyNum: json['family_num'],
+      familyCode: json['family_code'],
     );
   }
 
@@ -63,26 +75,8 @@ class User extends ChangeNotifier {
       'user_nickname': userNickname,
       'user_name': userName,
       'user_birth': userBirth,
-      'fam_user_name': famUserName,
+      'family_num': familyNum,
+      'family_code': familyCode,
     };
   }
 }
-
-//사용법
-// // 예시 사용자 정보 생성
-// User user = User(
-//   uid: "user_code_123",
-//   state: 1,
-//   userPoint: 100,
-//   userRole: "Player",
-//   userNickname: "Player1",
-//   userName: "John Doe",
-//   userBirth: "1990-01-01",
-//   famUserName: "FamilyUser1",
-// );
-
-// // 사용자 정보를 JSON으로 변환
-// Map<String, dynamic> userJson = user.toJson();
-
-// // JSON을 사용자 객체로 변환
-// User userFromJson = User.fromJson(userJson);

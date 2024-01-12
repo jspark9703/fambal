@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hackton_project/models/user.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class BalanceScreen extends StatefulWidget {
   const BalanceScreen({super.key});
@@ -143,25 +145,29 @@ class _BalanceScreenState extends State<BalanceScreen> {
             const SizedBox(
               height: 100,
             ),
-            SizedBox(
-              width: 150,
-              child: ElevatedButton(
-                onPressed: () {
-                  // 선택된 버튼에 따라 다른 동작 수행
-                  if (selectedButton == 'left') {
-                    // 왼쪽 버튼 선택 시 동작
-                  } else if (selectedButton == 'right') {
-                    // 오른쪽 버튼 선택 시 동작
-                  }
-
-                  // 선택된 버튼을 서버에 전송
-                  sendSelectedButtonToServer();
-                  GoRouter.of(context).goNamed("home");
-                  //GoRouter.of(context).go("/next_page");// 라우터로 페이지 이동
-                },
-                child: const Text("완료", style: TextStyle(color: Colors.black)),
-              ),
-            ),
+            Consumer<UserProviderR>(builder: (context, user, _) {
+              return SizedBox(
+                width: 150,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // 선택된 버튼에 따라 다른 동작 수행
+                    if (selectedButton == 'left') {
+                      // 왼쪽 버튼 선택 시 동작
+                    } else if (selectedButton == 'right') {
+                      // 오른쪽 버튼 선택 시 동작
+                    }
+                    user.setState = 1;
+                    // 선택된 버튼을 서버에 전송
+                    sendSelectedButtonToServer();
+                    print(user.state);
+                    GoRouter.of(context).goNamed("home");
+                    //GoRouter.of(context).go("/next_page");// 라우터로 페이지 이동
+                  },
+                  child:
+                      const Text("완료", style: TextStyle(color: Colors.black)),
+                ),
+              );
+            }),
           ],
         ),
       ),

@@ -44,6 +44,7 @@ class AuthFunc extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).pop();
                             signOut();
+                            context.go("/");
                           },
                         ),
                       ],
