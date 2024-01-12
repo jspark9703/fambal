@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "272762321955",
+    "project_id": "gdsc-fambal",
+    "storage_bucket": "gdsc-fambal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272762321955:android:089c0abc195f67f9c80596",
+        "android_client_info": {
+          "package_name": "com.example.hackton_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272762321955-ht4tfln38u0f5suv124vkk8p65he8u8a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hackton_project",
+            "certificate_hash": "6abf02088e025c712e7e0c9d997fcd34ae0ffba9"
+          }
+        },
+        {
+          "client_id": "272762321955-805cg6dgi57433ahrltlp0tku9nkldfu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3vfU2TVPYFfo3jjBDsCjR9SUrrwepcwc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272762321955-805cg6dgi57433ahrltlp0tku9nkldfu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "272762321955-lk8dk04g9p0h5i46q9llsfse5o8tmo31.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hacktonProject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
