@@ -16,7 +16,7 @@ void main() async {
           create: (_) => UserProviderR(
                 uid: 'user123',
                 state: 0,
-                userPoint: 100,
+                userPoint: 000,
                 userRole: 'user',
                 userNickname: 'nickname123',
                 userName: 'John Doe',

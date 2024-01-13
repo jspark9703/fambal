@@ -24,11 +24,23 @@ class UserProviderR extends ChangeNotifier {
     this.familyNum,
     this.familyCode,
   }) {
-    familyCode ??= generateRandomString(16);
+    if (familyCode == null || familyCode == "") {
+      familyCode = generateRandomString(15);
+    }
+  }
+
+  set setPoint(int input) {
+    userPoint = input;
+    notifyListeners();
   }
 
   set setName(String inputName) {
     userName = inputName;
+    notifyListeners();
+  }
+
+  set role(String input) {
+    userRole = input;
     notifyListeners();
   }
 

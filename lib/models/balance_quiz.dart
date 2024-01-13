@@ -1,79 +1,55 @@
-class BalanceAnswer {
-  String answer;
-  int correct;
-
-  BalanceAnswer({
-    required this.answer,
-    required this.correct,
-  });
-
-  factory BalanceAnswer.fromJson(Map<String, dynamic> json) {
-    return BalanceAnswer(
-      answer: json['answer'],
-      correct: json['correct'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'answer': answer,
-      'correct': correct,
-    };
-  }
-}
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BalanceQuiz {
   String balanceQuestion;
-  List<BalanceAnswer> balanceAnswers;
+  String leftAnswer;
+  int leftCorrect;
+  String rightAnswer;
+  int rightCorrect;
   int balanceNum;
   int balanceAnsCode;
+  String familyCode;
+  String userName;
 
-  BalanceQuiz({
-    required this.balanceQuestion,
-    required this.balanceAnswers,
-    required this.balanceNum,
-    required this.balanceAnsCode,
-  });
+  BalanceQuiz(
+      {required this.balanceQuestion,
+      required this.leftAnswer,
+      required this.leftCorrect,
+      required this.rightAnswer,
+      required this.rightCorrect,
+      required this.balanceNum,
+      required this.balanceAnsCode,
+      required this.familyCode,
+      required this.userName});
 
-  factory BalanceQuiz.fromJson(Map<String, dynamic> json) {
-    List<dynamic> answersJson = json['balance_answers'];
-    List<BalanceAnswer> answers =
-        answersJson.map((ans) => BalanceAnswer.fromJson(ans)).toList();
-
+  factory BalanceQuiz.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
     return BalanceQuiz(
-      balanceQuestion: json['balance_question'],
-      balanceAnswers: answers,
-      balanceNum: json['balance_num'],
-      balanceAnsCode: json['balance_ans_code'],
-    );
+        balanceQuestion: data?['balance_question'],
+        leftAnswer: data?['left_answer'],
+        leftCorrect: data?['left_correct'],
+        rightAnswer: data?['right_answer'],
+        rightCorrect: data?['right_correct'],
+        balanceNum: data?['balance_num'],
+        balanceAnsCode: data?['balance_ans_code'],
+        familyCode: data?["family_code"],
+        userName: data?["user_name"]);
   }
 
-  Map<String, dynamic> toJson() {
-    List<Map<String, dynamic>> answersJson =
-        balanceAnswers.map((ans) => ans.toJson()).toList();
-
+  Map<String, dynamic> toFirestore() {
     return {
-      'balance_question': balanceQuestion,
-      'balance_answers': answersJson,
-      'balance_num': balanceNum,
-      'balance_ans_code': balanceAnsCode,
+      "balance_question": balanceQuestion,
+      "left_answer": leftAnswer,
+      "left_correct": leftCorrect,
+      "right_answer": rightAnswer,
+      "right_correct": rightCorrect,
+      "balance_num": balanceNum,
+      "balance_ans_code": balanceAnsCode,
+      "family_code": familyCode,
+      "user_name": userName
     };
   }
 }
-
-//사용
-// BalanceQuestion question = BalanceQuestion(
-//   balanceQuestion: "What is the meaning of life?",
-//   balanceAnswers: [
-//     BalanceAnswer(answer: "To be happy", correct: 1),
-//     BalanceAnswer(answer: "42", correct: 0),
-//   ],
-//   balanceNum: 123,
-//   balanceAnsCode: 456,
-// );FEFAF1
-
-// // 객체를 JSON으로 변환
-// Map<String, dynamic> questionJson = question.toJson();
-
-// // JSON을 객체로 변환
-// BalanceQuestion questionFromJson = BalanceQuestion.fromJson(questionJson);

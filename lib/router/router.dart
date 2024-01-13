@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hackton_project/models/user.dart';
 import 'package:hackton_project/screens/balance_game_screen.dart';
+import 'package:hackton_project/screens/callernder_screen.dart';
 import 'package:hackton_project/screens/home_balance_screen.dart';
 import 'package:hackton_project/screens/imformation_screen.dart';
 import 'package:hackton_project/screens/login_screen.dart';
 import 'package:hackton_project/screens/quiz_screen.dart';
+import 'package:hackton_project/screens/result_screen.dart';
 import 'package:provider/provider.dart';
 
 final router = GoRouter(
@@ -24,12 +26,17 @@ final router = GoRouter(
           GoRoute(
             path: 'result',
             name: "result",
-            builder: (context, state) => const QuizScreen(),
+            builder: (context, state) => const ResultScreen(),
           ),
           GoRoute(
             path: 'balance_game',
             name: "balance_game",
             builder: (context, state) => const BalanceScreen(),
+          ),
+          GoRoute(
+            path: 'calender',
+            name: "calender",
+            builder: (context, state) => const CalendarScreen(),
           ),
         ]),
     GoRoute(
