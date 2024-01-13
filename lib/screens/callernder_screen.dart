@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hackton_project/models/CalenderEventModel.dart';
 import 'package:hackton_project/provider/user_info.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../models/CalenderEventModel.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -121,10 +122,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
     if (events.isNotEmpty) {
       return Column(
         children: events
-            .map((event) => ListTile(
-                  title: Text(event.eventName),
+            .asMap()
+            .entries
+            .map((entry) => ListTile(
+                  title: Text('${entry.key + 1}. ${entry.value.eventName}'),
                   onTap: () {
-                    _editEvent(event.eventName);
+                    _editEvent(entry.value.eventName);
                   },
                 ))
             .toList(),
@@ -180,6 +183,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       _selectedDate = selectedDay;
                     });
                   },
+                  eventLoader: (day) {
+                    UserProvider userProvider =
+                        Provider.of<UserProvider>(context);
+                    List<CalenderEventModel> events = userProvider.events
+                        .where((e) => isSameDay(e.eventDate, day))
+                        .toList();
+                    return events.isNotEmpty ? [events.length] : [];
+                  },
+                  calendarStyle: const CalendarStyle(
+                    markersMaxCount: 1,
+                    todayDecoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 20.0),
                 Text(
