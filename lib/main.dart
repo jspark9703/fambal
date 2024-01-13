@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackton_project/models/user.dart';
 import 'package:hackton_project/provider/firebase_auth.dart';
+import 'package:hackton_project/provider/user_info.dart';
 import 'package:provider/provider.dart';
 
 import './router/router.dart';
@@ -10,6 +11,7 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (_) => UserProvider()),
       ChangeNotifierProvider<ApplicationState>(
           create: (_) => ApplicationState()),
       ChangeNotifierProvider<UserProviderR>(

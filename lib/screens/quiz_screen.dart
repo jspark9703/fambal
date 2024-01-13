@@ -127,8 +127,87 @@ class _QuizScreenState extends State<QuizScreen> {
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else {
+                if (snapshot.data!.docs.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          '가족들의 선택은 무엇이었을까요?',
+                          style: TextStyle(fontSize: 15.0),
+                        ),
+                        const Text(
+                          "가족들을 사랑하시나요?",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                bool isCorrect = true;
+                                quizResultDialog(isCorrect);
+                              },
+                              child: Container(
+                                height: 100.0,
+                                width: 100.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.orangeAccent[100],
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "예",
+                                    style: TextStyle(
+                                      fontSize: 25.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Text(
+                              'VS',
+                              style: TextStyle(fontSize: 30.0),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                bool isCorrect = true;
+                                quizResultDialog(isCorrect);
+                              },
+                              child: Container(
+                                height: 100.0,
+                                width: 100.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.orangeAccent[100],
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "예",
+                                    style: TextStyle(
+                                      fontSize: 25.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
                 var data = snapshot.data!.docs[0];
-                print(data);
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

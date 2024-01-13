@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hackton_project/models/CalenderEventModel.dart';
+import 'package:hackton_project/provider/user_info.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -13,14 +16,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
   DateTime _selectedDate = DateTime.now();
   final TextEditingController _eventController = TextEditingController();
 
-  final Map<DateTime, List<String>> _events = {};
-
   void _addEvent() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("일정을 추가해추세요"),
+          title: const Text("일정을 추가해주세요"),
           content: TextFormField(
             controller: _eventController,
             decoration: const InputDecoration(
@@ -88,27 +89,42 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   void _saveEvent() {
+    Provider.of<UserProvider>(context, listen: false).addEvent(
+        CalenderEventModel(
+            eventName: _eventController.text, eventDate: _selectedDate));
+
     setState(() {
-      _events[_selectedDate] ??= [];
-      _events[_selectedDate]?.add(_eventController.text);
       _eventController.clear();
     });
   }
 
   void _deleteEvent(String event) {
-    setState(() {
-      _events[_selectedDate]?.remove(event);
-    });
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    CalenderEventModel eventModel = userProvider.events.firstWhere(
+      (e) => e.eventName == event && isSameDay(e.eventDate, _selectedDate),
+      orElse: () =>
+          CalenderEventModel(eventName: '', eventDate: DateTime(2000)),
+    );
+
+    if (isSameDay(eventModel.eventDate, _selectedDate)) {
+      userProvider.removeEvent(eventModel);
+    }
   }
 
   Widget _showEventsList() {
-    if (_events[_selectedDate] != null) {
+    UserProvider userProvider = Provider.of<UserProvider>(context);
+    List<CalenderEventModel> events = userProvider.events
+        .where((e) => isSameDay(e.eventDate, _selectedDate))
+        .toList();
+
+    if (events.isNotEmpty) {
       return Column(
-        children: _events[_selectedDate]!
+        children: events
             .map((event) => ListTile(
-                  title: Text(event),
+                  title: Text(event.eventName),
                   onTap: () {
-                    _editEvent(event);
+                    _editEvent(event.eventName);
                   },
                 ))
             .toList(),

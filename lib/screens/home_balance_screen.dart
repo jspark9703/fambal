@@ -95,6 +95,10 @@ class _HomeBalanceScreenState extends State<HomeBalanceScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Image.asset(
+                "assets/images/logo.png",
+                width: 300,
+              ),
               const SizedBox(
                 height: 20.0,
               ),
@@ -111,28 +115,32 @@ class _HomeBalanceScreenState extends State<HomeBalanceScreen> {
                   ),
                   child: Consumer<UserProviderR>(
                       builder: (context, userProvider, _) {
-                    return Column(
-                      children: [
-                        Text(
-                          "이름: ${userProvider.userName}",
-                          style: const TextStyle(fontSize: 20),
-                          textAlign: TextAlign.left,
-                        ),
-                        Text(
-                          "직책: ${userProvider.userRole}",
-                          style: const TextStyle(fontSize: 20),
-                          textAlign: TextAlign.left,
-                        ),
-                        Text(
-                          "점수: ${userProvider.userPoint}",
-                          style: const TextStyle(fontSize: 20),
-                          textAlign: TextAlign.left,
-                        ),
-                      ],
+                    return SizedBox(
+                      width: 500,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "이름: ${userProvider.userName}",
+                            style: const TextStyle(fontSize: 20),
+                            textAlign: TextAlign.left,
+                          ),
+                          Text(
+                            "직책: ${userProvider.userRole}",
+                            style: const TextStyle(fontSize: 20),
+                            textAlign: TextAlign.left,
+                          ),
+                          Text(
+                            "점수: ${userProvider.userPoint}",
+                            style: const TextStyle(fontSize: 20),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
                     );
                   })),
               const SizedBox(
-                height: 200,
+                height: 100,
               ),
               SizedBox(
                 width: 150,

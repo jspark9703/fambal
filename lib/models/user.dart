@@ -25,7 +25,8 @@ class UserProviderR extends ChangeNotifier {
     this.familyCode,
   }) {
     if (familyCode == null || familyCode == "") {
-      familyCode = generateRandomString(15);
+      familyCode = generateRandomString(6);
+      notifyListeners();
     }
   }
 

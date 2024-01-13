@@ -185,6 +185,20 @@ class _BalanceScreenState extends State<BalanceScreen> {
                 return FutureBuilder(
                     future: db.collection("balance_list").get(),
                     builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                            child:
+                                CircularProgressIndicator()); // Display a loading indicator while fetching data.
+                      }
+
+                      if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      }
+
+                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                        return const Text('No comments available.');
+                      }
+
                       var dataList = [];
                       dataList = snapshot.data!.docs;
 

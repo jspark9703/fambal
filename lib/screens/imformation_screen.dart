@@ -200,9 +200,12 @@ class _InformationScreenState extends State<InformationScreen> {
             return ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  userProvider.familyCode = _niknameController.text;
+                  if (_niknameController.text != "") {
+                    userProvider.familyCode = _niknameController.text;
+                  }
                   userProvider.setName = _userNameController.text;
                   userProvider.role = _userRollController.text;
+
                   try {
                     db.collection("user").doc().set(userProvider.toJson());
                   } catch (e) {

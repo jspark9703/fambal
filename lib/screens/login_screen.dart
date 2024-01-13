@@ -33,16 +33,22 @@ class _LoginScreenState extends State<LoginScreen> {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "Fambal",
-                  style: TextStyle(fontSize: 56),
+                Image.asset(
+                  'assets/images/logo.png',
+                  height: 300,
+                  width: 300,
                 ),
+                const SizedBox(height: 30),
                 !appState.loggedIn
-                    ? TextButton(
-                        onPressed: () {
+                    ? GestureDetector(
+                        onTap: () {
                           context.go("/sign-in");
                         },
-                        child: const Text("구글로 로그인"))
+                        child: Image.asset(
+                          "assets/images/google_login.png",
+                          width: 200,
+                        ),
+                      )
                     : TextButton(
                         onPressed: () {
                           context.go("/user_info");
