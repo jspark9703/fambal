@@ -140,7 +140,7 @@ class _HomeBalanceScreenState extends State<HomeBalanceScreen> {
                     );
                   })),
               const SizedBox(
-                height: 100,
+                height: 40,
               ),
               SizedBox(
                 width: 150,
